@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+ {include file='Public/link'}
+</head>
+<body>
+{include file='Public/top'}
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+{include file='Public/left'}
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="{:url('Admin/lst')}">系统</a>
+                    </li>
+                                        <li class="active" >配置管理</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加配置" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('Cfg/add')}'"> <i class="fa fa-plus"></i> 添加配置
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                    <form action="" method="post">
+                        <table class="table table-bordered table-hover">
+                            <thead class="">
+                                <tr>            
+                                    <th class="text-center" width="10%">中文名称</th>
+                                    <th class="text-center" width="10%">英文名称</th>
+
+                                    <th class="text-center" width="80%">配置值</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {volist name="confres" id='lst'}
+                                <tr>
+                                
+                                    <td align="center">{$lst.cnname}</td>
+                                    <td align="center">{$lst.enname}</td>
+                                {switch name="$lst.type"}
+                                    {case value="1"}<td align="left"><input type="text" name="{$lst.enname}" style="width:500px" value="{$lst.value}"></td>{/case}
+                                    {case value="2"}<td align="left"><textarea   name="{$lst.enname}" style="width:500px" >{$lst.value}</textarea></td>{/case}
+                                    {case value="3"}
+                                        <td align="left">  
+                                      <?php if($lst['values']!='')
+                                                    {
+                                                        $arr = explode(',',$lst['values']);
+                                                    }
+                                                    foreach ($arr as $k1=>$v1)
+                                                    {
+                                                           
+                                         ?>
+                                         
+                                                <label style="float:left; margin-left:10px;margin-right:10px">
+                                            <input  {if condition=" $lst['value'] eq $v1"}checked{/if}  name="{$lst.enname}" type="radio" value="<?php  echo $v1?>" >
+                                            <span class="text"><?php  echo $v1;}?></span>
+                                                  </label>
+                                              
+                                    </td>
+                                    {/case}
+                                    {case value="4"}<td align="left">
+                                               <?php if($lst['values']!='')
+                                                    {
+                                                        $arr = explode(',',$lst['values']);
+                                                    }
+                                                    foreach ($arr as $k1=>$v1)
+                                                    {                                                           
+                                         ?>
+                                              <label style="float:left; margin-left:10px;margin-right:10px">
+                                            <input name="{$lst.enname}"  type="checkbox" value="<?php  echo $v1?>" {if condition=" $lst['value'] eq $v1"}checked{/if}>
+                                            <span class="text"><?php  echo $v1;}?></span>
+                                                  </label>
+                                    </td>{/case}
+                                    {case value="5"}<td align="left">
+                                            <?php if($lst['values']!='')
+                                                        {
+                                                            $arr = explode(',',$lst['values']);
+                                                        }
+                                              ?>                                                     
+                                                <select name="{$lst.enname}" id="">
+                                               <?php  foreach($arr as $v2)
+                                                        {
+                                                        ?>
+                                                    <option value="<?php  echo $v2 ?>" {if condition=" $lst['value'] eq $v2"}selected{/if}><?php  echo $v2 ?></option>
+                                                       <?php  }?>
+                                                </select>
+                                                 
+                                
+                                                  </label>
+                                    </td>{/case}
+                                    {/default}
+                                {/switch}
+                                </tr>
+                                {/volist}                  
+                            </tbody>
+                        </table>
+                        <div style="padding-left: 10px;"><input type="submit" value="提交修改" class="btn btn-primary btn-sm shiny">
+                        </div>
+                 </form>
+                </div>
+                <div >
+                    <div style="padding-top: 12px;padding-right:-10px;width:132px;float:right;">
+                            {$confres->render()}
+                    </div>
+                   </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

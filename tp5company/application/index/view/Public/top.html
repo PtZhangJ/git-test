@@ -1,0 +1,54 @@
+<div id="header_wrap">
+    <div id="header">
+        <div style="float: left; width: 310px;">
+            <h1>
+                <a href="">aaa</a>
+                <div class="" id="logo-sub-class">
+                </div>
+            </h1>
+        </div>
+        <div id="navi">
+
+<ul id="jsddm">
+<li><a class="navi_home" href="{:url('index/index')}">首页</a></li>
+<li><a class="navi_home" target="_blank"  >{$confres.name}</a></li>
+    {volist name="onecates" id ="one"}
+<li><a 
+{if condition="$one.child neq 0"}href="{:url('Artlist/index',array('id'=>$one.id))}" class="havechild"
+{else/}href="{:url('Article/index',array('id'=>$one.id))}" 
+{/if}>{$one.catename}</a>
+ {if condition="$one.child neq 0"}
+<ul>
+    <?php foreach($one['child'] as $k=>$v){?>
+<li><a {if condition="$v.type eq 1"}href="{:url('Artlist/index',array('id'=>$v.id))}"{else/}href="{:url('Article/index',array('id'=>$v.id))}"{/if}><?php echo $v['catename']?></a></li>
+<?php }?>
+</ul>
+{/if}
+ </li>
+{/volist}
+</ul>
+
+            <div style="clear: both;">
+            </div>
+
+            
+        </div>
+        <div style="float: right; width: 209px;">
+            <div class="widget" style="height: 30px; padding-top: 20px;">
+                <div style="float: left;">
+      <form  name="formsearch" action="{:url('Search/index')}" mothed="get">                
+<input name="keyword" type="text" style="background-color: #000000;padding-left: 10px; font-size: 12px;font-family: 'Microsoft Yahei'; color: #999999;height: 29px; width: 160px; border: solid 1px #666666; line-height: 28px;" id="go" value="在这里搜索..." onfocus="if(this.value=='在这里搜索...'){this.value='';}"  onblur="if(this.value==''){this.value='在这里搜索...';}" />
+        </form>
+                        </div>
+                <div style="float: left;">
+                    <img src="/static/index/images/search-new.png" id="imgSearch" style="cursor: pointer; margin: 0px;
+                        padding: 0px;" onclick="subForm()"  /></div>
+                <div style="clear: both;">
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+</div>
